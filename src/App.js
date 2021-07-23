@@ -1,17 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {BrowserRouter as Router} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import Home from "./Components/Home/Home.jsx";
+import Products from "./Components/Products/Products.jsx";
+import ProductDetails from './Components/Products/ProductDetails.jsx';
+import Cart from "./Components/Cart/Cart.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
-
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="App">
-        hi
-    </div>
-    </Router>
-    
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/products" exact component={Products} />
+        <Route path="/product/:id" exact component={ProductDetails} />
+        <Route path="/cart" exact component={Cart} />
+      </Switch> 
+    </Router>  
   );
 }
-
 export default App;
