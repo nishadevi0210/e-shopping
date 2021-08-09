@@ -1,13 +1,24 @@
-//listOfProducts from db.json
-import {useContext} from 'react';
-import Header from "../Header.jsx"
-import {useParams} from "react-router-dom";
-import {orderContext} from "../../orderContext.js";
-import Footer from "../Footer.jsx"
+{
+  "listOfCategories": [
+    {
+        "id": 1,
+        "name": "moda"
+    },
+    {
+        "id": 2,
+        "name": "casa"
+    },
+    {
+        "id": 3,
+        "name": "dispositivi"
+    },
+    {
+        "id": 4,
+        "name": "altro"
+    }
+  ],
 
-const ProductDetails = () => {
-
-    const listOfProducts = [
+    "listOfProducts":[
         {
             "id": 1,
             "name": "product1",
@@ -78,44 +89,5 @@ const ProductDetails = () => {
             "details": "lorem ipsum lorem ipsum lorem ipsum",
             "img": "a"
         }
-    ];
-    
-    const {order, setOrder} = useContext(orderContext);
-    //const listOfProducts = []; ki bjaye yhan listState leke aani h
-
-    let {id} = useParams();
-    id = parseInt(id);
-
-    let result = listOfProducts.filter(
-        (listItem) => {
-            return listItem.id === id;
-        }
-    );
-    let thisProduct = result[0]; 
-
-    const addToCart = (thisProduct) => {
-        let id = thisProduct.id;
-        let newOrder = [...order, id];
-        setOrder(newOrder);
-        //alert(name + " is added to cart.");
-    }
-
-    return (
-        <div className="container pt-3">
-            <Header />
-            <div className="details">
-                <h1>{thisProduct.name}</h1>
-                <h2>Price: £{thisProduct.price}</h2>
-                <h3>Details: {thisProduct.details}</h3>
-                <button className="btn btn-primary" 
-                    onClick={() => {addToCart(thisProduct)}}>
-                    Add to cart
-                </button>
-            </div>
-            <Footer />
-        </div>
-    )
+    ]
 }
-
-export default ProductDetails;
-// <button className="btn btn-info" onClick={history.goBack()}>Back to list</button>

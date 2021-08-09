@@ -1,11 +1,6 @@
-//listOfProducts from db.json
-import {useContext} from 'react';
-import Header from "../Header.jsx"
-import {useParams} from "react-router-dom";
-import {orderContext} from "../../orderContext.js";
-import Footer from "../Footer.jsx"
+import {useEffect} from 'react';
 
-const ProductDetails = () => {
+const ProductOrdered = (props) => {
 
     const listOfProducts = [
         {
@@ -79,43 +74,33 @@ const ProductDetails = () => {
             "img": "a"
         }
     ];
-    
-    const {order, setOrder} = useContext(orderContext);
-    //const listOfProducts = []; ki bjaye yhan listState leke aani h
 
-    let {id} = useParams();
-    id = parseInt(id);
+    const selectedProductId = props.productId;
+    const selectedProductIndex = props.index;
+    const total = props.total;
+    const setTotal = props.setTotal;
 
-    let result = listOfProducts.filter(
-        (listItem) => {
-            return listItem.id === id;
+    const filteredArr = listOfProducts.filter(
+        (eachProduct) => {
+            return eachProduct.id === selectedProductId;
         }
     );
-    let thisProduct = result[0]; 
+    const selectedProduct = filteredArr[0];
 
-    const addToCart = (thisProduct) => {
-        let id = thisProduct.id;
-        let newOrder = [...order, id];
-        setOrder(newOrder);
-        //alert(name + " is added to cart.");
-    }
-
+    useEffect(
+        () => {
+            setTotal(total + selectedProduct.price);
+        }, []
+    );
+    
     return (
-        <div className="container pt-3">
-            <Header />
-            <div className="details">
-                <h1>{thisProduct.name}</h1>
-                <h2>Price: £{thisProduct.price}</h2>
-                <h3>Details: {thisProduct.details}</h3>
-                <button className="btn btn-primary" 
-                    onClick={() => {addToCart(thisProduct)}}>
-                    Add to cart
-                </button>
-            </div>
-            <Footer />
-        </div>
+        <tr>
+            <td>{selectedProductIndex + 1}</td>
+            <td>{selectedProduct.name}</td>
+            <td>£{selectedProduct.price}</td>
+            <td><button className="btn btn-sm btn-danger">Remove</button></td>
+        </tr>
     )
 }
 
-export default ProductDetails;
-// <button className="btn btn-info" onClick={history.goBack()}>Back to list</button>
+export default ProductOrdered;

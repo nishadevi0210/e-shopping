@@ -1,11 +1,31 @@
-//listOfProducts from db.json
-import {useContext} from 'react';
+//import {useState} from 'react';
 import Header from "../Header.jsx"
-import {useParams} from "react-router-dom";
-import {orderContext} from "../../orderContext.js";
-import Footer from "../Footer.jsx"
+import ProductForList from './ProductForList.jsx';
+import Footer from "../Footer.jsx";
+//import axios from "axios";
 
-const ProductDetails = () => {
+
+const ProductsList = () => {
+
+    //const [listOfProducts, setListOfProducts] = useState([]);
+    //useContext to get list state here
+    
+    /*const fetchListOfProducts = async () => {
+        try {
+            let endpoint = "http://localhost:5000/listOfProducts";
+            const response = await axios.get(endpoint);
+            return response.data;
+        } catch (error) {
+            console.log("error: ", error);
+        }
+    }
+
+    const getListOfProducts = async () => {
+        const listFromServer = await fetchListOfProducts();
+        setListOfProducts(listFromServer);
+    }
+
+    getListOfProducts();*/
 
     const listOfProducts = [
         {
@@ -79,43 +99,20 @@ const ProductDetails = () => {
             "img": "a"
         }
     ];
-    
-    const {order, setOrder} = useContext(orderContext);
-    //const listOfProducts = []; ki bjaye yhan listState leke aani h
-
-    let {id} = useParams();
-    id = parseInt(id);
-
-    let result = listOfProducts.filter(
-        (listItem) => {
-            return listItem.id === id;
-        }
-    );
-    let thisProduct = result[0]; 
-
-    const addToCart = (thisProduct) => {
-        let id = thisProduct.id;
-        let newOrder = [...order, id];
-        setOrder(newOrder);
-        //alert(name + " is added to cart.");
-    }
 
     return (
         <div className="container pt-3">
             <Header />
-            <div className="details">
-                <h1>{thisProduct.name}</h1>
-                <h2>Price: £{thisProduct.price}</h2>
-                <h3>Details: {thisProduct.details}</h3>
-                <button className="btn btn-primary" 
-                    onClick={() => {addToCart(thisProduct)}}>
-                    Add to cart
-                </button>
-            </div>
+                {listOfProducts.map(
+                    (eachProduct) => {
+                        return(
+                            <ProductForList key={eachProduct.id} eachProduct={eachProduct} />
+                        )
+                    }
+                )}
             <Footer />
         </div>
     )
 }
 
-export default ProductDetails;
-// <button className="btn btn-info" onClick={history.goBack()}>Back to list</button>
+export default ProductsList;
