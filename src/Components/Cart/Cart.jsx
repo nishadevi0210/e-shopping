@@ -6,7 +6,7 @@ import ProductTableInCart from './ProductTableInCart.jsx';
 import Footer from "../Footer.jsx";
 
 const Cart = () => {
-    const {order} = useContext(orderContext);
+    const {order, setOrder} = useContext(orderContext);
     return (
         <div className="container pt-3">
             <Header />
@@ -14,7 +14,7 @@ const Cart = () => {
             <div>
                 {order.length === 0
                 ? <EmptyCart />
-                : <ProductTableInCart order={order} />      
+                : <ProductTableInCart order={order} setOrder={setOrder} />      
                 }
             </div>
             <Footer />

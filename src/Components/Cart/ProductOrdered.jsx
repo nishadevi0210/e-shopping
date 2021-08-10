@@ -1,4 +1,6 @@
 import {useEffect} from 'react';
+import { orderContext } from '../../orderContext';
+//import { orderContext } from "../../orderContext.js";
 
 const ProductOrdered = (props) => {
 
@@ -75,16 +77,21 @@ const ProductOrdered = (props) => {
         }
     ];
 
+    //const {order} = useContext(orderContext);
+
     const selectedProductId = props.productId;
-    const selectedProductIndex = props.index;
+    const selectedProductIndex = props.index; //index in array order
     const total = props.total;
     const setTotal = props.setTotal;
+    const order = props.order;
+    const setOrder = props.setOrder;
 
-    const filteredArr = listOfProducts.filter(
+    let filteredArr = listOfProducts.filter(
         (eachProduct) => {
             return eachProduct.id === selectedProductId;
         }
     );
+    
     const selectedProduct = filteredArr[0];
 
     useEffect(
@@ -92,13 +99,22 @@ const ProductOrdered = (props) => {
             setTotal(total + selectedProduct.price);
         }, []
     );
+
+    const removeItem = (index) => {
+        let newOrder = order.filter(
+            (element, position) => {
+                return position !== index;
+            }
+        );
+        setOrder(newOrder);
+    }
     
     return (
         <tr>
             <td>{selectedProductIndex + 1}</td>
             <td>{selectedProduct.name}</td>
             <td>£{selectedProduct.price}</td>
-            <td><button className="btn btn-sm btn-danger">Remove</button></td>
+            <td><button className="btn btn-sm btn-danger" onClick={() => removeItem(selectedProductIndex)}>Remove</button></td>
         </tr>
     )
 }

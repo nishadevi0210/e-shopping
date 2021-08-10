@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const ProductTableInCart = (props) => {
 
     const order = props.order;
+    const setOrder = props.setOrder;
 
     const [total, setTotal] = useState(0);
     
@@ -28,6 +29,8 @@ const ProductTableInCart = (props) => {
                                 productId={id} 
                                 total={total} 
                                 setTotal={setTotal}
+                                order={order}
+                                setOrder={setOrder}
                             />
                         )    
                     }
