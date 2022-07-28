@@ -1,13 +1,13 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import moda from "../assets/img/moda.jpg";
+import logo from "../assets/img/foto.jpg";
 
 const Header = () => {
     return (
         
             <nav className="navbar navbar-expand-sm bg-dark navbar-dark ">
                 <Link className="navbar-brand" to="/">
-                    <img src={moda} alt="logo" height="" width = "70px" />
+                    <img src={logo} alt="logo" height="" width = "70px" />
                 </Link>
                 <h1 className="navbar-text"> e-shopping </h1>
                 <ul className="navbar-nav">
